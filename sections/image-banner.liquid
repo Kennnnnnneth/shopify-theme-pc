@@ -4,7 +4,7 @@
   {%- style -%}
     @media screen and (max-width: 749px) {
       #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before,
+      #Banner-{{ section.id }}.banner__media::before,
       #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
         padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
         content: '';
@@ -13,8 +13,9 @@
     }
 
     @media screen and (min-width: 750px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before {
+      #Banner-{{ section.id }}: : before
+      , #Banner-{{ section.id }}
+      .banner__media::before {
         padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
         content: '';
         display: block;
@@ -138,7 +139,8 @@
               {%- if block.settings.button_label_1 != blank -%}
                 <a
                   {% if block.settings.button_link_1 == blank %}
-                    role="link" aria-disabled="true"
+                    role="link"
+                    aria-disabled="true"
                   {% else %}
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
@@ -150,7 +152,8 @@
               {%- if block.settings.button_label_2 != blank -%}
                 <a
                   {% if block.settings.button_link_2 == blank %}
-                    role="link" aria-disabled="true"
+                    role="link"
+                    aria-disabled="true"
                   {% else %}
                     href="{{ block.settings.button_link_2 }}"
                   {% endif %}
@@ -162,9 +165,46 @@
             </div>
         {%- endcase -%}
       {%- endfor -%}
+      {% assign liquidv = 'okoj' %}
+
+      <div id="hey" style="font-size: 20px; color:brown; z-index:10 ">
+        {% comment %}
+          <div v-html="test" :style="{color}">
+
+          </div>
+        {% endcomment %}
+        222
+        <div :style="{color}">
+          {{ section.settings.image_overlay_opacity }}
+        </div>
+        <div v-html="test"></div>
+        <div>v{atext}</div>
+        hi
+        <div>v{atext.split('j')}</div>
+        <div>v{xx}</div>
+        <div>v{cici}</div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  if (document.querySelector('#hey') != null) {
+    Vue.createApp({
+      delimiters: ['v{', '}'],
+      data() {
+        return {
+          test: 'hello world zcsafa',
+          color: 'yellow',
+          ok: true,
+          atext: 'djwaiwj',
+          xx:{{ section.settings.image_overlay_opacity}},
+          cici:{{liquidv|json}}
+        };
+      },
+    }).mount('#hey');
+  }
+</script>
 
 {% schema %}
 {
